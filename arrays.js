@@ -17,6 +17,7 @@ const fill2D = (arr) => {
 };
 
 let arr = fill2D(generate2D(10, 120));
+let arr = fill2D(generate2D(10, 60));
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
@@ -37,3 +38,9 @@ let move = () => {
 
 print2D(move());
 
+function intervalFunc () {
+  console.clear();
+  // minden
+  print2D();
+}
+setInterval(intervalFunc, 1500);
