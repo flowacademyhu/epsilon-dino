@@ -1,4 +1,4 @@
-// lanyok ma jol fogunk haladni!
+
 const generate2D = (size, size2) => {
   let arr = new Array(size);
   for (let i = 0; i < size; i++) {
@@ -49,6 +49,7 @@ let dinoMove = (dino) => {
 dinoMove(dino);
 
 let arr = fill2D(generate2D(10, 60));
+
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
@@ -57,6 +58,16 @@ const print2D = () => {
     console.log();
   }
 };
+
+let move = () => {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length-1; j++) {
+      arr[i][j] = arr[i][j+1];
+    }
+  }
+};
+
+print2D(move());
 
 function intervalFunc () {
   console.clear();
