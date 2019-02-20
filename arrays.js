@@ -1,3 +1,4 @@
+// lanyok ma jol fogunk haladni!
 const generate2D = (size, size2) => {
   let arr = new Array(size);
   for (let i = 0; i < size; i++) {
