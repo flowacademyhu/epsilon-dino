@@ -17,7 +17,6 @@ const fill2D = (arr) => {
 };
 
 let arr = fill2D(generate2D(10, 120));
-let arr = fill2D(generate2D(10, 60));
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
@@ -27,20 +26,17 @@ const print2D = () => {
     console.log();
   }
 };
-
+arr[0][118] = 2;
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr[i].length-1; j++) {
-      arr[i][j] = arr[i][j+1];
+    for (let j = 0; j < arr[i].length - 1; j++) {
+      arr[i][j] = arr[i][j + 1];
     }
   }
 };
 
-print2D(move());
-
 function intervalFunc () {
   console.clear();
-  // minden
-  print2D();
+  print2D(move());
 }
-setInterval(intervalFunc, 1500);
+setInterval(intervalFunc, 200);
