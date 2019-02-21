@@ -62,14 +62,30 @@ let move = () => {
       if (arr[i][j] === 2 || arr[i][j] === 0) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
-        break;
+        STOP();
       }
     }
   }
 };
-
+function STOP () {
+  console.log('Vesztettel, vege!');
+  process.exit();
+}
+function KeyAction () {
+  var stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.resume();
+  stdin.setEncoding('utf8');
+  stdin.on('data', function (key) {
+    if (key === '\u001b[A') {
+      process.exit();
+    }
+    process.stdout.write(key);
+  });
+}
+KeyAction();
 function intervalFunc () {
   console.clear();
   print2D(move(arr));
 }
-setInterval(intervalFunc, 10);
+setInterval(intervalFunc, 50);
