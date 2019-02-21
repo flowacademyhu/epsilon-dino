@@ -24,7 +24,7 @@ let block3 = [[0, 2, 0], [2, 2, 2], [2, 2, 0]];
 
 let randomBlock = (block) => {
   let x = 118;
-  let y = 9;
+  let y = 8;
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
       arr[y - i][x - j] = block[i][j];
@@ -38,15 +38,13 @@ let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
 
 let dinoMove = (dino) => {
   let x = 119;
-  let y = 9;
+  let y = 8;
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
       arr[y - i][j] = dino[i][j];
     }
   }
 };
-
-dinoMove(dino);
 
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
@@ -86,6 +84,8 @@ function KeyAction () {
 KeyAction();
 function intervalFunc () {
   console.clear();
-  print2D(move(arr));
+  // minden
+  dinoMove(dino);
+  print2D(move());
 }
 setInterval(intervalFunc, 50);
