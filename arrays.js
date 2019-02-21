@@ -23,7 +23,7 @@ let block2 = [[0, 2, 0], [0, 2, 0], [0, 0, 0]];
 let block3 = [[0, 2, 0], [2, 2, 2], [2, 2, 0]];
 
 let randomBlock = (block) => {
-  let x = 119;
+  let x = 118;
   let y = 9;
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
@@ -48,8 +48,6 @@ let dinoMove = (dino) => {
 
 dinoMove(dino);
 
-let arr = fill2D(generate2D(10, 60));
-
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
@@ -61,17 +59,15 @@ const print2D = () => {
 
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr[i].length-1; j++) {
-      arr[i][j] = arr[i][j+1];
+    for (let j = 0; j < arr[i].length - 1; j++) {
+      arr[i][j] = arr[i][j + 1];
     }
   }
 };
 
-print2D(move());
-
 function intervalFunc () {
   console.clear();
   // minden
-  print2D();
+  print2D(move());
 }
 setInterval(intervalFunc, 1500);
