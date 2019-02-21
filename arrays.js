@@ -17,8 +17,6 @@ const fill2D = (arr) => {
 };
 
 let arr = fill2D(generate2D(10, 120));
-<<<<<<< HEAD
-=======
 
 let block1 = [[0, 2, 0], [2, 2, 2], [2, 2, 2]];
 let block2 = [[0, 2, 0], [0, 2, 0], [0, 0, 0]];
@@ -50,7 +48,6 @@ let dinoMove = (dino) => {
 
 dinoMove(dino);
 
->>>>>>> 956b656d71229098de896430c9e4f6d4d1d18d1f
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
@@ -59,7 +56,6 @@ const print2D = () => {
     console.log();
   }
 };
-arr[0][118] = 2;
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
@@ -70,10 +66,7 @@ let move = () => {
 
 function intervalFunc () {
   console.clear();
-<<<<<<< HEAD
-=======
   // minden
->>>>>>> 956b656d71229098de896430c9e4f6d4d1d18d1f
   print2D(move());
 }
-setInterval(intervalFunc, 200);
+setInterval(intervalFunc, 1500);
