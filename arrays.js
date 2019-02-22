@@ -45,6 +45,7 @@ let dinoMove = (dino) => {
     }
   }
 };
+dinoMove(dino);
 
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
@@ -54,6 +55,21 @@ const print2D = () => {
     console.log();
   }
 };
+let status = 0;
+
+let dinoUp = () => {
+  if (status < 5) {
+    for (let i = 1; i < arr.length - 1; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (arr[i][j] === 1) {
+          arr[i - 1][j] = arr[i][j];
+          arr[i][j] = 0;
+        }
+      }
+    } status += 1;
+  } return status;
+};
+
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
@@ -65,12 +81,13 @@ let move = () => {
     }
   }
 };
+
 function STOP () {
   console.log('Vesztettel, vege!');
   process.exit();
 }
 function KeyAction () {
-  var stdin = process.stdin;
+  let stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.resume();
   stdin.setEncoding('utf8');
@@ -85,7 +102,7 @@ KeyAction();
 function intervalFunc () {
   console.clear();
   // minden
-  dinoMove(dino);
+  dinoUp();
   print2D(move());
 }
-setInterval(intervalFunc, 50);
+setInterval(intervalFunc, 500);
