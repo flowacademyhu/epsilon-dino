@@ -37,8 +37,8 @@ randomBlock(block3);
 let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
 
 let dinoMove = (dino) => {
-  let x = 119;
-  let y = 8;
+  // let x = 119;
+  let y = 8; // 3
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
       arr[y - i][j] = dino[i][j];
@@ -59,7 +59,7 @@ const print2D = () => {
 let status = 0;
 
 let dinoUp = () => {
-  if (status < 5) {
+ if (status < 5) {
     for (let i = 1; i < arr.length - 1; i++) {
       for (let j = 0; j < 3; j++) {
         if (arr[i][j] === 1) {
@@ -67,8 +67,16 @@ let dinoUp = () => {
           arr[i][j] = 0;
         }
       }
-    } status += 1;
-  } return status;
+   } status += 1;
+  }
+};
+
+let dinoDown = () => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 2; j >= 0; j--) {
+      arr[i][j] = arr[i - 1][j];
+    }
+  }
 };
 
 let move = () => {
@@ -93,20 +101,20 @@ function KeyAction () {
   stdin.resume();
   stdin.setEncoding('utf8');
   stdin.on('data', function (key) {
-    if (key === '\u001b[A') {
+    if (key === '\u001b[B') {
       process.exit();
-    } 
-    if (key === '\u0009'){
-      dinoUp()
+    } else if (key === '\u0009') {
+      setInterval(dinoUp, 200);
     }
     process.stdout.write(key);
   });
 }
 KeyAction();
+
 function intervalFunc () {
   console.clear();
   // minden
-  //dinoUp();
   print2D(move());
+  // dinoDown()
 }
-setInterval(intervalFunc, 100);
+setInterval(intervalFunc, 200);
