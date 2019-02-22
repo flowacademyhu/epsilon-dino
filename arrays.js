@@ -1,4 +1,6 @@
-
+const speed = 1000;
+const nehezseg = 20;
+let BlockGenerated = 0;
 const generate2D = (size, size2) => {
   let arr = new Array(size);
   for (let i = 0; i < size; i++) {
@@ -18,21 +20,35 @@ const fill2D = (arr) => {
 
 let arr = fill2D(generate2D(10, 120));
 
-let block1 = [[0, 2, 0], [2, 2, 2], [2, 2, 2]];
-let block2 = [[0, 2, 0], [0, 2, 0], [0, 0, 0]];
-let block3 = [[0, 2, 0], [2, 2, 2], [2, 2, 0]];
-
-let randomBlock = (block) => {
+let addRandomBlock = () => {
+  let random = Math.floor(Math.random() * 3);
+  let ertek;
+  switch (random) {
+    case 0: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 2]]; break;
+    case 1: ertek = [[0, 2, 0], [0, 2, 0], [0, 0, 0]]; break;
+    case 2: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 0]]; break;
+  }
+  return ertek;
+};
+let blockToltes = (randomBlock) => {
   let x = 118;
   let y = 8;
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
-      arr[y - i][x - j] = block[i][j];
+      arr[y - i][x - j] = randomBlock[i][j];
     }
   }
 };
-
-randomBlock(block3);
+let randomBlockGenerator = () => {
+  BlockGenerated--;
+  if (BlockGenerated < 0) {
+    let ranValue = Math.floor(Math.random() * nehezseg);
+    if (ranValue === 5) {
+      blockToltes(addRandomBlock());
+      BlockGenerated = 10;
+    }
+  }
+};
 
 let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
 
@@ -55,21 +71,8 @@ const print2D = () => {
     console.log();
   }
 };
-
 let status = 0;
 
-let dinoUp = () => {
-  if (status < 5) {
-    for (let i = 1; i < arr.length - 1; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (arr[i][j] === 1) {
-          arr[i - 1][j] = arr[i][j];
-          arr[i][j] = 0;
-        }
-      }
-    } status += 1;
-  } return status;
-};
 
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
@@ -95,9 +98,9 @@ function KeyAction () {
   stdin.on('data', function (key) {
     if (key === '\u001b[A') {
       process.exit();
-    } 
-    if (key === '\u0009'){
-      dinoUp()
+    }
+    if (key === '\u0009') {
+      dinoUp();
     }
     process.stdout.write(key);
   });
@@ -106,7 +109,8 @@ KeyAction();
 function intervalFunc () {
   console.clear();
   // minden
-  //dinoUp();
+  // dinoUp();
+  randomBlockGenerator();
   print2D(move());
 }
-setInterval(intervalFunc, 100);
+setInterval(intervalFunc, speed);
