@@ -56,17 +56,20 @@ const print2D = () => {
   }
 };
 
-let dinoUp = () => {
-  for (let i = 1; i < arr.length - 1; i++) {
-    for (let j = 0; j < 3; j++) {
-      if(arr[i][j] === 1){
-      arr[i-1][j]=arr[i][j]
-      arr[i][j] = 0
-      }
-    }
-  }
-};
+let status = 0;
 
+let dinoUp = () => {
+  if (status < 5) {
+    for (let i = 1; i < arr.length - 1; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (arr[i][j] === 1) {
+          arr[i - 1][j] = arr[i][j];
+          arr[i][j] = 0;
+        }
+      }
+    } status += 1;
+  } return status;
+};
 
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
@@ -92,6 +95,9 @@ function KeyAction () {
   stdin.on('data', function (key) {
     if (key === '\u001b[A') {
       process.exit();
+    } 
+    if (key === '\u0009'){
+      dinoUp()
     }
     process.stdout.write(key);
   });
@@ -100,7 +106,7 @@ KeyAction();
 function intervalFunc () {
   console.clear();
   // minden
-  dinoUp();
+  //dinoUp();
   print2D(move());
 }
 setInterval(intervalFunc, 100);
