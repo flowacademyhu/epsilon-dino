@@ -74,7 +74,7 @@ const print2D = () => {
 let status = 0;
 
 let dinoUp = () => {
- if (status < 5) {
+  if (status < 5) {
     for (let i = 1; i < arr.length - 1; i++) {
       for (let j = 0; j < 3; j++) {
         if (arr[i][j] === 1) {
@@ -82,7 +82,7 @@ let dinoUp = () => {
           arr[i][j] = 0;
         }
       }
-   } status += 1;
+    } status += 1;
   }
 };
 
@@ -119,7 +119,13 @@ function KeyAction () {
     if (key === '\u001b[B') {
       process.exit();
     } else if (key === '\u0009') {
-      setInterval(dinoUp, 100);
+      // setInterval(dinoUp, 100);
+      for (let x = 0; x < 5; x++) {
+        setTimeout(dinoUp, 200 * x);
+      }
+      for (let x = 0; x < 5; x++) {
+        setTimeout(dinoDown, 1000 * x);
+      }      
     }
     process.stdout.write(key);
   });
@@ -135,4 +141,3 @@ function intervalFunc () {
   // dinoDown()
 }
 setInterval(intervalFunc, 200);
-
