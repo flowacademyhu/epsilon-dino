@@ -83,7 +83,9 @@ let dinoUpDown = () => {
         }
       }
     }
-  } else if (status < 10) {
+  } else if (status < 7) {
+
+  } else if (status < 12) {
     for (let i = arr.length - 1; i > 0; i--) {
       for (let j = 2; j >= 0; j--) {
         arr[i][j] = arr[i - 1][j];
@@ -121,12 +123,9 @@ function KeyAction () {
       process.exit();
     } else if (key === '\u0020') {
       // setInterval(dinoUp, 100);
-      for (let x = 0; x < 10; x++) {
+      for (let x = 0; x < 13; x++) {
         setTimeout(dinoUpDown, 200 * x);
       }
-      //for (let x = 0; x < 5; x++) {
-       // setTimeout(dinoDown, 1000 * x);
-      //}      
     }
     process.stdout.write(key);
   });
