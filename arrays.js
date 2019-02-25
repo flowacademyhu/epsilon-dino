@@ -119,7 +119,7 @@ function KeyAction () {
   stdin.on('data', function (key) {
     if (key === '\u001b[B') {
       process.exit();
-    } else if (key === '\u0009') {
+    } else if (key === '\u0020') {
       // setInterval(dinoUp, 100);
       for (let x = 0; x < 10; x++) {
         setTimeout(dinoUpDown, 200 * x);
