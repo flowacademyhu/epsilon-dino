@@ -1,5 +1,5 @@
 const speed = 1000;
-const nehezseg = 20;
+const nehezseg = 40;
 let BlockGenerated = 0;
 const generate2D = (size, size2) => {
   let arr = new Array(size);
@@ -49,7 +49,6 @@ let randomBlockGenerator = () => {
     }
   }
 };
-
 let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
 
 let dinoMove = (dino) => {
@@ -62,11 +61,17 @@ let dinoMove = (dino) => {
   }
 };
 dinoMove(dino);
-
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
-      process.stdout.write(arr[x][y] + '');
+      let kaposzta = '\u220E';
+      if (arr[x][y] === 1 || arr[x][y] === 2) {
+        process.stdout.write(kaposzta);
+      } else if (arr[x][y] === 0) {
+        process.stdout.write(' ');
+      } else {
+        process.stdout.write(arr[x][y] + '');
+      }
     }
     console.log();
   }
