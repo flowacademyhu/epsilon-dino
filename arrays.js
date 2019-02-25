@@ -73,7 +73,7 @@ const print2D = () => {
 };
 let status = 0;
 
-let dinoUp = () => {
+let dinoUpDown = () => {
   if (status < 5) {
     for (let i = 1; i < arr.length - 1; i++) {
       for (let j = 0; j < 3; j++) {
@@ -82,16 +82,16 @@ let dinoUp = () => {
           arr[i][j] = 0;
         }
       }
-    } status += 1;
-  }
-};
-
-let dinoDown = () => {
-  for (let i = arr.length - 1; i > 0; i--) {
-    for (let j = 2; j >= 0; j--) {
-      arr[i][j] = arr[i - 1][j];
     }
-  }
+  } else if (status < 10) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      for (let j = 2; j >= 0; j--) {
+        arr[i][j] = arr[i - 1][j];
+      }
+    }
+  } else {
+    status = -1;
+  } status += 1;
 };
 
 let move = () => {
@@ -110,6 +110,7 @@ function STOP () {
   console.log('Vesztettel, vege!');
   process.exit();
 }
+
 function KeyAction () {
   let stdin = process.stdin;
   stdin.setRawMode(true);
@@ -120,16 +121,17 @@ function KeyAction () {
       process.exit();
     } else if (key === '\u0009') {
       // setInterval(dinoUp, 100);
-      for (let x = 0; x < 5; x++) {
-        setTimeout(dinoUp, 200 * x);
+      for (let x = 0; x < 10; x++) {
+        setTimeout(dinoUpDown, 200 * x);
       }
-      for (let x = 0; x < 5; x++) {
-        setTimeout(dinoDown, 1000 * x);
-      }      
+      //for (let x = 0; x < 5; x++) {
+       // setTimeout(dinoDown, 1000 * x);
+      //}      
     }
     process.stdout.write(key);
   });
 }
+
 KeyAction();
 
 function intervalFunc () {
