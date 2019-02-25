@@ -120,13 +120,9 @@ function KeyAction () {
     if (key === '\u001b[B') {
       process.exit();
     } else if (key === '\u0020') {
-      // setInterval(dinoUp, 100);
-      for (let x = 0; x < 10; x++) {
+      for (let x = 0; x < 11; x++) {
         setTimeout(dinoUpDown, 200 * x);
       }
-      //for (let x = 0; x < 5; x++) {
-       // setTimeout(dinoDown, 1000 * x);
-      //}      
     }
     process.stdout.write(key);
   });
@@ -136,10 +132,7 @@ KeyAction();
 
 function intervalFunc () {
   console.clear();
-  // minden
-  // dinoUp();
   randomBlockGenerator();
   print2D(move());
-  // dinoDown()
 }
 setInterval(intervalFunc, 200);
