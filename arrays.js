@@ -1,5 +1,5 @@
 const speed = 1000;
-const nehezseg = 20;
+const nehezseg = 40;
 let BlockGenerated = 0;
 const generate2D = (size, size2) => {
   let arr = new Array(size);
@@ -18,7 +18,7 @@ const fill2D = (arr) => {
   return arr;
 };
 
-let arr = fill2D(generate2D(10, 120));
+let arr = fill2D(generate2D(24, 80));
 
 let addRandomBlock = () => {
   let random = Math.floor(Math.random() * 3);
@@ -31,8 +31,8 @@ let addRandomBlock = () => {
   return ertek;
 };
 let blockToltes = (randomBlock) => {
-  let x = 118;
-  let y = 8;
+  let x = 78;
+  let y = 22;
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
       arr[y - i][x - j] = randomBlock[i][j];
@@ -49,12 +49,11 @@ let randomBlockGenerator = () => {
     }
   }
 };
-
 let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
 
 let dinoMove = (dino) => {
   // let x = 119;
-  let y = 8; // 3
+  let y = 22; // 3
   for (let i = 0; i <= 2; i++) {
     for (let j = 0; j <= 2; j++) {
       arr[y - i][j] = dino[i][j];
@@ -62,11 +61,17 @@ let dinoMove = (dino) => {
   }
 };
 dinoMove(dino);
-
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
-      process.stdout.write(arr[x][y] + '');
+      let kaposzta = '\u2588';
+      if (arr[x][y] === 1 || arr[x][y] === 2) {
+        process.stdout.write(kaposzta);
+      } else if (arr[x][y] === 0) {
+        process.stdout.write(' ');
+      } else {
+        process.stdout.write(arr[x][y] + '');
+      }
     }
     console.log();
   }
@@ -83,7 +88,9 @@ let dinoUpDown = () => {
         }
       }
     }
-  } else if (status < 10) {
+  } else if (status < 7) {
+
+  } else if (status < 12) {
     for (let i = arr.length - 1; i > 0; i--) {
       for (let j = 2; j >= 0; j--) {
         arr[i][j] = arr[i - 1][j];
@@ -120,8 +127,8 @@ function KeyAction () {
     if (key === '\u001b[B') {
       process.exit();
     } else if (key === '\u0020') {
-      for (let x = 0; x < 11; x++) {
-        setTimeout(dinoUpDown, 200 * x);
+      for (let x = 0; x < 13; x++) {
+        setTimeout(dinoUpDown, 100 * x);
       }
     }
     process.stdout.write(key);
