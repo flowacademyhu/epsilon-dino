@@ -53,17 +53,23 @@ let randomBlockGenerator = () => {
     }
   }
 };
-let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
+let dino = [[0, 0, 0, 0, 1, 1, 1, 1],
+[0, 1, 0, 0, 1, 0, 1, 1], 
+[0, 1, 0, 0, 1, 1, 1, 1],
+[0, 1, 1, 0, 1, 1, 0, 0],
+[0, 0, 1, 1, 1, 1, 1, 0],
+[0, 0, 1, 1, 1, 0, 0, 0],
+[0, 0, 0, 1, 0, 0, 0, 0]]; 
 
 let dinoMove = (dino) => {
-  // let x = 119;
-  let y = 22; // 3
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 2; j++) {
+  let y = 22;
+  for (let i = 0; i < 7; i++) {
+    for (let j = 0; j < 8; j++) {
       arr[y - i][j] = dino[i][j];
     }
   }
 };
+
 dinoMove(dino);
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
@@ -85,7 +91,7 @@ let status = 0;
 let dinoUpDown = () => {
   if (status < 5) {
     for (let i = 1; i < arr.length - 1; i++) {
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < 8; j++) {
         if (arr[i][j] === 1) {
           arr[i - 1][j] = arr[i][j];
           arr[i][j] = 0;
@@ -96,7 +102,7 @@ let dinoUpDown = () => {
 
   } else if (status < 12) {
     for (let i = arr.length - 1; i > 0; i--) {
-      for (let j = 2; j >= 0; j--) {
+      for (let j = 7; j >= 0; j--) {
         arr[i][j] = arr[i - 1][j];
       }
     }
@@ -105,10 +111,12 @@ let dinoUpDown = () => {
   } status += 1;
 };
 
+dinoUpDown();
+
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
-      if (arr[i][j] === 2 || arr[i][j] === 0) {
+      if ( (arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
         // STOP();
