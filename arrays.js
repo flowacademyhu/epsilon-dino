@@ -70,7 +70,7 @@ let dino = [[0, 0, 0, 0, 1, 1, 1, 1],
 let dinoMove = (dino) => {
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 8; j++) {
-      arr[17 + i][j] = dino[i][j];
+      arr[17 + i][j + 2] = dino[i][j];
     }
   }
 };
@@ -95,7 +95,7 @@ let status = 0;
 let dinoUpDown = () => {
   if (status < 6) {
     for (let i = 1; i < arr.length; i++) {
-      for (let j = 0; j < 8; j++) {
+      for (let j = 0; j < arr[i].length; j++) {
         if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
           arr[i - 1][j] = arr[i][j];
           arr[i][j] = 0;
@@ -106,9 +106,10 @@ let dinoUpDown = () => {
 
   } else if (status < 13) {
     for (let i = arr.length - 1; i > 0; i--) {
-      for (let j = 7; j >= 0; j--) {
-        arr[i][j] = 0;
-        arr[i][j] = arr[i - 1][j];
+      for (let j = arr.length - 1; j >= 0; j--) {
+        if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
+          arr[i][j] = arr[i - 1][j];
+}
       }
     }
   } else {
@@ -122,7 +123,7 @@ let move = () => {
       if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
-        // STOP();
+        STOP();
       }
     }
   }
