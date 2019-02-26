@@ -1,6 +1,6 @@
-const speed = 1000;
-const nehezseg = 40;
-let BlockGenerated = 0;
+const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
+                        az akadaly letrehozasahoz. */
+let BlockGenerated = 0; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
 const generate2D = (size, size2) => {
   let arr = new Array(size);
   for (let i = 0; i < size; i++) {
@@ -39,13 +39,17 @@ let blockToltes = (randomBlock) => {
     }
   }
 };
+let tavolsag = 10;
+let blockGeneratedID = 0;
 let randomBlockGenerator = () => {
   BlockGenerated--;
   if (BlockGenerated < 0) {
     let ranValue = Math.floor(Math.random() * nehezseg);
     if (ranValue === 5) {
       blockToltes(addRandomBlock());
-      BlockGenerated = 10;
+      BlockGenerated = tavolsag;
+      blockGeneratedID++;
+      return blockGeneratedID;
     }
   }
 };
@@ -107,7 +111,7 @@ let move = () => {
       if (arr[i][j] === 2 || arr[i][j] === 0) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
-        STOP();
+        // STOP();
       }
     }
   }
@@ -134,12 +138,49 @@ function KeyAction () {
     process.stdout.write(key);
   });
 }
-
-KeyAction();
-
-function intervalFunc () {
-  console.clear();
-  randomBlockGenerator();
-  print2D(move());
+function ScoreAndSpeed () {
+  if (blockGeneratedID > score && speed >= 150) {
+    speed -= 15; /* Itt lehet allitani a jatek gyorsulasat */
+    score++;
+    difficulty = 'Easy';
+  } else if (blockGeneratedID > score && speed >= 100) {
+    speed -= 10;
+    score++;
+    difficulty = 'Medium';
+    tavolsag = 15;
+  } else if (blockGeneratedID > score && speed >= 30) {
+    speed -= 3;
+    score++;
+    difficulty = 'Hard';
+    tavolsag = 20;
+  } else if (blockGeneratedID > score && speed >= 10) {
+    speed -= 1;
+    score++;
+    difficulty = 'Nightmare';
+    tavolsag = 40;
+  } else if (blockGeneratedID > score && speed > 4) {
+    speed -= 1;
+    score++;
+    difficulty = 'IMPOSSIBLE';
+    tavolsag = 50;
+  } else if (speed === 4) {
+    score++;
+    difficulty = 'JESUS!';
+  }
 }
-setInterval(intervalFunc, 200);
+let speed = 300;
+let score = 0;
+let difficulty = '- (Varakozas az elso akadalyra)';
+KeyAction();
+let App = () => {
+  setTimeout(function run () {
+    console.clear();
+    randomBlockGenerator();
+    move();
+    print2D(move());
+    setTimeout(run, speed);
+    ScoreAndSpeed();
+    console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
+  });
+};
+App();
