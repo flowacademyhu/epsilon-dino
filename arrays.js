@@ -93,7 +93,7 @@ const print2D = () => {
 let status = 0;
 
 let dinoUpDown = () => {
-  if (status < 6) {
+  if (status < 8) {
     for (let i = 1; i < arr.length; i++) {
       for (let j = 0; j < arr[i].length; j++) {
         if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
@@ -102,18 +102,18 @@ let dinoUpDown = () => {
         }
       }
     }
-  } else if (status < 8) {
+  } else if (status < 10) {
 
-  } else if (status < 13) {
+  } else if (status < 18) {
     for (let i = arr.length - 1; i > 0; i--) {
       for (let j = arr.length - 1; j >= 0; j--) {
         if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
           arr[i][j] = arr[i - 1][j];
-}
+        }
       }
     }
   } else {
-    status = 0;
+    status = -1;
   } status += 1;
 };
 
@@ -144,7 +144,7 @@ function KeyAction () {
       // highscoreIratas(score);
       process.exit();
     } else if (key === '\u0020') {
-      for (let x = 0; x < 13; x++) {
+      for (let x = 0; x < 19; x++) {
         setTimeout(dinoUpDown, 100 * x);
       }
     }
