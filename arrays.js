@@ -53,14 +53,24 @@ let randomBlockGenerator = () => {
     }
   }
 };
-let dino = [[0, 1, 0], [0, 1, 1], [0, 1, 0]];
+let dino = [[0, 0, 0, 0, 1, 1, 1, 1],
+
+  [0, 1, 0, 0, 1, 0, 1, 1],
+
+  [0, 1, 0, 0, 1, 1, 1, 1],
+
+  [0, 1, 1, 0, 1, 1, 0, 0],
+
+  [0, 0, 1, 1, 1, 1, 1, 0],
+
+  [0, 0, 1, 1, 1, 0, 0, 0],
+
+  [0, 0, 0, 1, 0, 0, 0, 0]];
 
 let dinoMove = (dino) => {
-  // let x = 119;
-  let y = 22; // 3
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 2; j++) {
-      arr[y - i][j] = dino[i][j];
+  for (let i = 0; i < 7; i++) {
+    for (let j = 0; j < 8; j++) {
+      arr[17 + i][j] = dino[i][j];
     }
   }
 };
@@ -83,32 +93,33 @@ const print2D = () => {
 let status = 0;
 
 let dinoUpDown = () => {
-  if (status < 5) {
-    for (let i = 1; i < arr.length - 1; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (arr[i][j] === 1) {
+  if (status < 6) {
+    for (let i = 1; i < arr.length; i++) {
+      for (let j = 0; j < 8; j++) {
+        if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
           arr[i - 1][j] = arr[i][j];
           arr[i][j] = 0;
         }
       }
     }
-  } else if (status < 7) {
+  } else if (status < 8) {
 
-  } else if (status < 12) {
+  } else if (status < 13) {
     for (let i = arr.length - 1; i > 0; i--) {
-      for (let j = 2; j >= 0; j--) {
+      for (let j = 7; j >= 0; j--) {
+        arr[i][j] = 0;
         arr[i][j] = arr[i - 1][j];
       }
     }
   } else {
-    status = -1;
+    status = 0;
   } status += 1;
 };
 
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
-      if (arr[i][j] === 2 || arr[i][j] === 0) {
+      if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
         // STOP();
@@ -129,7 +140,7 @@ function KeyAction () {
   stdin.setEncoding('utf8');
   stdin.on('data', function (key) {
     if (key === '\u001b[B') {
-      highscoreIratas(score);
+      // highscoreIratas(score);
       process.exit();
     } else if (key === '\u0020') {
       for (let x = 0; x < 13; x++) {
@@ -173,30 +184,21 @@ function ScoreAndSpeed () {
   myObj = {name: userName, scores: score};
   myJSON = JSON.stringify(myObj);
   localStorage.setItem("gameStorage", myJSON);
-} */ 
+} */
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
 
+KeyAction();
 let App = () => {
   setTimeout(function run () {
     console.clear();
     randomBlockGenerator();
     move();
-    KeyAction();
     print2D(move());
     setTimeout(run, speed);
     ScoreAndSpeed();
     console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
   });
 };
-let readlineSync = require('readline-sync');
-let userName = readlineSync.question('May I have your name, please? ');
-console.log('Hello ' + userName + '!');
-
-let readlineSync3 = require('readline-sync');
-let menu = ['Start game', 'Highscore', 'Exit']
-let index = readlineSync3.keyInSelect(menu);
-if (menu[index] === 'Start game') {
-  App();
-}
+App();
