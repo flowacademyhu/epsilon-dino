@@ -82,24 +82,6 @@ let dinoMove = (dino) => {
 };
 dinoMove(dino);
 
-/*const print2D = () => {
-  for (let x = 0; x < arr.length; x++) {
-    for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
-      if (arr[x][y] === 2) {
-        process.stdout.write('\u28FF');}
-      else if (arr[x][y] === 1) {
-        process.stdout.write(kaposzta);
-      } else if (arr[x][y] === 0) {
-        process.stdout.write(' ');
-      } else {
-        process.stdout.write(arr[x][y] + '');
-      }
-    }
-    console.log();
-  }
-};*/
-
 const print2D = () => {
   let str = new String();
   for (let x = 0; x < arr.length; x++) {
@@ -116,7 +98,6 @@ const print2D = () => {
   }
   return str;
 };
-
 
 let status = 0;
 
@@ -149,7 +130,7 @@ let move = () => {
     for (let j = 0; j < arr[i].length - 1; j++) {
       if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
-      } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
+      } else if ((arr[i][j] === 2 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 2)) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
         process.exit();
@@ -243,5 +224,7 @@ let App = () => {
     }
   });
 };
+
+
 
 App();
