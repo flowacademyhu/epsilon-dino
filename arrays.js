@@ -78,9 +78,8 @@ dinoMove(dino);
 const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
       if (arr[x][y] === 1 || arr[x][y] === 2) {
-        process.stdout.write(kaposzta);
+        process.stdout.write('\u2588');
       } else if (arr[x][y] === 0) {
         process.stdout.write(' ');
       } else {
@@ -116,14 +115,14 @@ let dinoUpDown = () => {
     status = -1;
   } status += 1;
 };
-
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
       if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
-        STOP();
+        cancelled = false;
+        print2D(gameOver(gameOverArray));
       }
     }
   }
@@ -145,10 +144,6 @@ const gameOver = (gameOverArray) => {
 
 // gameOver(gameOverArray);
 
-function STOP () {
-  process.exit();
-}
-
 function KeyAction () {
   let stdin = process.stdin;
   stdin.setRawMode(true);
@@ -156,7 +151,6 @@ function KeyAction () {
   stdin.setEncoding('utf8');
   stdin.on('data', function (key) {
     if (key === '\u001b[B') {
-      // highscoreIratas(score);
       process.exit();
     } else if (key === '\u0020') {
       for (let x = 0; x < 21; x++) {
@@ -204,17 +198,20 @@ function ScoreAndSpeed () {
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
-
+let cancelled = true;
 KeyAction();
 let App = () => {
   setTimeout(function run () {
-    console.clear();
-    randomBlockGenerator();
-    move();
-    print2D(move());
-    setTimeout(run, speed);
-    ScoreAndSpeed();
-    console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
+    if (cancelled) {
+      console.clear();
+      randomBlockGenerator();
+      move();
+      print2D(move());
+      setTimeout(run, speed);
+      ScoreAndSpeed();
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
+    }
   });
 };
+
 App();
