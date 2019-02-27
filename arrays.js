@@ -1,6 +1,6 @@
 const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
                         az akadaly letrehozasahoz. */
-let BlockGenerated = 0; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
+let BlockGenerated = 10; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
 const generate2D = (size, size2) => {
   let arr = new Array(size);
   for (let i = 0; i < size; i++) {
@@ -39,13 +39,19 @@ let blockToltes = (randomBlock) => {
     }
   }
 };
-let tavolsag = 10;
+let firstBlokk = 1;
+let tavolsag = 13;
 let blockGeneratedID = 0;
 let randomBlockGenerator = () => {
+  if (firstBlokk === 1) {
+    blockToltes(addRandomBlock());
+    firstBlokk--;
+    blockGeneratedID++;
+  }
   BlockGenerated--;
-  if (BlockGenerated < 0) {
+  if (BlockGenerated <= 0) {
     let ranValue = Math.floor(Math.random() * nehezseg);
-    if (ranValue === 5) {
+    if (ranValue === 5 || BlockGenerated < -20) {
       blockToltes(addRandomBlock());
       BlockGenerated = tavolsag;
       blockGeneratedID++;
@@ -173,22 +179,22 @@ function ScoreAndSpeed () {
     speed -= 10;
     score++;
     difficulty = 'Medium';
-    tavolsag = 15;
+    tavolsag = 20;
   } else if (blockGeneratedID > score && speed >= 30) {
     speed -= 3;
     score++;
     difficulty = 'Hard';
-    tavolsag = 20;
+    tavolsag = 30;
   } else if (blockGeneratedID > score && speed >= 10) {
     speed -= 1;
     score++;
     difficulty = 'Nightmare';
-    tavolsag = 40;
+    tavolsag = 50;
   } else if (blockGeneratedID > score && speed > 4) {
     speed -= 1;
     score++;
     difficulty = 'IMPOSSIBLE';
-    tavolsag = 50;
+    tavolsag = 70;
   } else if (speed === 4) {
     score++;
     difficulty = 'JESUS!';
@@ -213,7 +219,7 @@ let App = () => {
       print2D(move());
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty + '\b:' + BlockGenerated);
     }
   });
 };
