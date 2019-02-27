@@ -95,7 +95,7 @@ const print2D = () => {
 let status = 0;
 
 let dinoUpDown = () => {
-  if (status < 10) {
+  if (status < 9) {
     for (let i = 1; i < arr.length; i++) {
       for (let j = 0; j < arr[i].length; j++) {
         if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
@@ -104,9 +104,9 @@ let dinoUpDown = () => {
         }
       }
     }
-  } else if (status < 10) {
+  } else if (status < 14) {
 
-  } else if (status < 20) {
+  } else if (status < 23) {
     for (let i = arr.length - 1; i > 0; i--) {
       for (let j = arr.length - 1; j >= 0; j--) {
         if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
@@ -126,6 +126,7 @@ let move = () => {
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
         cancelled = false;
         print2D(gameOver(gameOverArray));
+        process.exit();
       }
     }
   }
@@ -156,7 +157,7 @@ function KeyAction () {
     if (key === '\u001b[B') {
       process.exit();
     } else if (key === '\u0020') {
-      for (let x = 0; x < 21; x++) {
+      for (let x = 0; x < 24; x++) {
         setTimeout(dinoUpDown, 100 * x);
       }
     }
