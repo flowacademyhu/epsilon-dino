@@ -55,13 +55,13 @@ let randomBlockGenerator = () => {
 };
 let dino = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
-  [0, 1, 0, 0, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 1, 0, 1, 1, 1],
 
   [0, 1, 0, 0, 1, 1, 1, 1, 1],
 
   [0, 1, 1, 0, 1, 1, 0, 0, 0],
 
-  [0, 0, 1, 1, 1, 1, 1, 0, 0],
+  [0, 1, 1, 1, 1, 1, 1, 0, 0],
 
   [0, 0, 1, 1, 1, 0, 0, 0, 0],
 
@@ -75,7 +75,8 @@ let dinoMove = (dino) => {
   }
 };
 dinoMove(dino);
-const print2D = () => {
+
+/*const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
       let kaposzta = '\u2588';
@@ -91,7 +92,26 @@ const print2D = () => {
     }
     console.log();
   }
+};*/
+
+const print2D = () => {
+  let str = new String();
+  for (let x = 0; x < arr.length; x++) {
+    for (let y = 0; y < arr[x].length; y++) {
+      let kaposzta = '\u2588';
+      if (arr[x][y] === 2) {
+        str += '\u28FF';
+      } else if (arr[x][y] === 1) {
+        str += kaposzta;
+      } else if (arr[x][y] === 0) {
+        str += ' ';
+      }
+    } str += '\n';
+  }
+  return str;
 };
+
+
 let status = 0;
 
 let dinoUpDown = () => {
@@ -125,7 +145,7 @@ let move = () => {
         arr[i][j] = arr[i][j + 1];
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
         cancelled = false;
-        print2D(gameOver(gameOverArray));
+        console.log(print2D(gameOver(gameOverArray)));
         process.exit();
       }
     }
@@ -210,7 +230,7 @@ let App = () => {
       console.clear();
       randomBlockGenerator();
       move();
-      print2D(move());
+      console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
       console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
