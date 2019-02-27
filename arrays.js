@@ -126,6 +126,7 @@ let move = () => {
       } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
         cancelled = false;
         print2D(gameOver(gameOverArray));
+        process.exit();
       }
     }
   }
