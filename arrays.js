@@ -25,7 +25,7 @@ let addRandomBlock = () => {
   let ertek;
   switch (random) {
     case 0: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 2]]; break;
-    case 1: ertek = [[0, 2, 0], [0, 2, 0], [0, 0, 0]]; break;
+    case 1: ertek = [[0, 2, 0], [2, 2, 2], [0, 2, 2]]; break;
     case 2: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 0]]; break;
   }
   return ertek;
@@ -79,7 +79,11 @@ const print2D = () => {
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
       let kaposzta = '\u2588';
-      if (arr[x][y] === 1 || arr[x][y] === 2) {
+      if (arr[x][y] === 2) {
+        process.stdout.write('\u28FF');
+      }
+
+      else if (arr[x][y] === 1) {
         process.stdout.write(kaposzta);
       } else if (arr[x][y] === 0) {
         process.stdout.write(' ');
