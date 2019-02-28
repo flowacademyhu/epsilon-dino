@@ -48,18 +48,20 @@ let blockToltes = (addRandomBlock) => {
         arr[23 - i][78 - j] = addRandomBlock[i][j];
       }
     }
-  } else {
+  } 
+  else if (addRandomBlock === birdArr) {
     for (let i = 0; i <= 1; i++) {
       for (let j = 0; j <= 6; j++) {
-        arr[16 + i][65 - j] = birdArr[i][j];
+        arr[16 + i][65 - j] = addRandomBlock[i][j];
       }
     }
   }
 };
 
 let firstBlokk = 1;
-let tavolsag = 13;
+let tavolsag = 15;
 let blockGeneratedID = 0;
+
 let randomBlockGenerator = () => {
   if (firstBlokk === 1) {
     blockToltes(addRandomBlock());
@@ -77,6 +79,7 @@ let randomBlockGenerator = () => {
     }
   }
 };
+
 let dinoArray = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
   [0, 0, 0, 0, 1, 0, 1, 1, 1],
@@ -98,6 +101,7 @@ let dinoMove = () => {
     }
   }
 };
+
 dinoMove(dinoArray);
 
 let statusTwo = 0;
@@ -204,12 +208,12 @@ function KeyAction () {
   stdin.on('data', function (key) {
     if (key === '\u001b') {
       process.exit();
-    } else if (key === '\u0020') {
+    } else if (key === '\u001b[B' && key !== '\u0020' && key !== '\u001b[A') {
+      dinoChange();
+    } else if ((key === '\u0020' || key === '\u001b[A') && statusTwo !== 1 ) {
       for (let x = 0; x < 24; x++) {
         setTimeout(dinoUpDown, 100 * x);
       }
-    } else if (key === '\u001b[B') {
-      dinoChange();
     }
     process.stdout.write(key);
   });
@@ -245,8 +249,6 @@ function ScoreAndSpeed () {
   } return score;
 }
 
-
-
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
@@ -261,9 +263,8 @@ let App = () => {
       console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
-      
-    } 
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);      
+    }
   });
 };
 
