@@ -244,4 +244,4 @@ let App = () => {
   });
 };
 
-App();
+module.exports = { App };
