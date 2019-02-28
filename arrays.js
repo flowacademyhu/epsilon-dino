@@ -130,6 +130,7 @@ const print2D = () => {
   let str = new String();
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
+      // itt élt káposzta. Rest in peace (élt: 2019.02.24 - 2019.02.28)
       if (arr[x][y] === 2) {
         str += '\u28FF';
       } else if (arr[x][y] === 1) {
@@ -182,6 +183,7 @@ let move = () => {
         arr[i][j] = arr[i][j + 1];
         arr[i][j + 1] = 0;
       } else if ((arr[i][j] + arr[i][j + 1]) === 3 || (arr[i][j] + arr[i][j + 1]) === 7) {
+      } else if ((arr[i][j] === 2 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 2)) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
         process.exit();
@@ -254,11 +256,7 @@ function ScoreAndSpeed () {
     difficulty = 'JESUS!';
   }
 }
-/* function highscoreIratas (score) {
-  myObj = {name: userName, scores: score};
-  myJSON = JSON.stringify(myObj);
-  localStorage.setItem("gameStorage", myJSON);
-} */
+
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
@@ -273,9 +271,8 @@ let App = () => {
       console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty + '\b:' + BlockGenerated);
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
     }
   });
 };
-
-App();
+module.exports = { App };
