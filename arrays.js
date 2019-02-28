@@ -82,33 +82,15 @@ let dinoMove = (dino) => {
 };
 dinoMove(dino);
 
-/*const print2D = () => {
-  for (let x = 0; x < arr.length; x++) {
-    for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
-      if (arr[x][y] === 2) {
-        process.stdout.write('\u28FF');}
-      else if (arr[x][y] === 1) {
-        process.stdout.write(kaposzta);
-      } else if (arr[x][y] === 0) {
-        process.stdout.write(' ');
-      } else {
-        process.stdout.write(arr[x][y] + '');
-      }
-    }
-    console.log();
-  }
-};*/
-
 const print2D = () => {
   let str = new String();
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
+      // itt élt káposzta. Rest in peace (élt: 2019.02.24 - 2019.02.28)
       if (arr[x][y] === 2) {
         str += '\u28FF';
       } else if (arr[x][y] === 1) {
-        str += kaposzta;
+        str += '\u2588';
       } else if (arr[x][y] === 0) {
         str += ' ';
       }
@@ -220,11 +202,7 @@ function ScoreAndSpeed () {
     difficulty = 'JESUS!';
   }
 }
-/* function highscoreIratas (score) {
-  myObj = {name: userName, scores: score};
-  myJSON = JSON.stringify(myObj);
-  localStorage.setItem("gameStorage", myJSON);
-} */
+
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
@@ -239,9 +217,8 @@ let App = () => {
       console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty + '\b:' + BlockGenerated);
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
     }
   });
 };
-
 module.exports = { App };
