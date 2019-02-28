@@ -12,3 +12,5 @@ if (menu[index] === 'Start game') {
   console.log('Key 3 was pressed, application terminated.');
   process.exit();
 }
+
+module.exports = { userName };

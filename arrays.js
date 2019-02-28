@@ -1,3 +1,6 @@
+const readAndWriteFv = require('./scoreTable');
+let readAndWrite = readAndWriteFv.writeAndReadFile;
+
 const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
                         az akadaly letrehozasahoz. */
 let BlockGenerated = 10; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
@@ -125,6 +128,7 @@ let dinoUpDown = () => {
     status = -1;
   } status += 1;
 };
+
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
@@ -133,6 +137,7 @@ let move = () => {
       } else if ((arr[i][j] === 2 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 2)) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
+        readAndWrite(score);
         process.exit();
       }
     }
@@ -199,8 +204,10 @@ function ScoreAndSpeed () {
   } else if (speed === 4) {
     score++;
     difficulty = 'JESUS!';
-  }
+  } return score;
 }
+
+
 
 let speed = 300;
 let score = 0;
@@ -217,7 +224,11 @@ let App = () => {
       setTimeout(run, speed);
       ScoreAndSpeed();
       console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);
-    }
+      
+    } 
   });
 };
+
+module.exports = { score };
+
 module.exports = { App };
