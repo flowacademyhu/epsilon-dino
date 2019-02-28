@@ -99,7 +99,6 @@ const print2D = () => {
   return str;
 };
 
-
 let status = 0;
 
 let dinoUpDown = () => {
@@ -131,7 +130,7 @@ let move = () => {
     for (let j = 0; j < arr[i].length - 1; j++) {
       if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
-      } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
+      } else if ((arr[i][j] === 2 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 2)) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
         process.exit();
