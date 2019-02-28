@@ -21,24 +21,38 @@ const fill2D = (arr) => {
 let arr = fill2D(generate2D(24, 80));
 
 let addRandomBlock = () => {
-  let random = Math.floor(Math.random() * 3);
+  let random = Math.floor(Math.random() * 4);
   let ertek;
   switch (random) {
-    case 0: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 2]]; break;
-    case 1: ertek = [[0, 2, 0], [2, 2, 2], [0, 2, 2]]; break;
-    case 2: ertek = [[0, 2, 0], [2, 2, 2], [2, 2, 0]]; break;
+    case 0: ertek = cactusOne; break;
+    case 1: ertek = cactusTwo; break;
+    case 2: ertek = cactusThree; break;
+    case 3: ertek = birdArr; break;
   }
   return ertek;
 };
-let blockToltes = (randomBlock) => {
-  let x = 78;
-  let y = 23;
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 2; j++) {
-      arr[y - i][x - j] = randomBlock[i][j];
+
+let cactusOne = [[0, 2, 0], [2, 2, 2], [2, 2, 2]];
+let cactusTwo = [[0, 2, 0], [2, 2, 2], [0, 2, 2]];
+let cactusThree = [[0, 2, 0], [2, 2, 2], [2, 2, 0]];
+let birdArr = [[0, 6, 6, 0, 6, 6, 0], [6, 0, 0, 6, 0, 0, 6]];
+
+let blockToltes = (addRandomBlock) => {
+  if ((addRandomBlock === cactusOne || addRandomBlock === cactusTwo) || addRandomBlock === cactusThree) {
+    for (let i = 0; i <= 2; i++) {
+      for (let j = 0; j <= 2; j++) {
+        arr[23 - i][78 - j] = addRandomBlock[i][j];
+      }
+    }
+  } else {
+    for (let i = 0; i <= 1; i++) {
+      for (let j = 0; j <= 6; j++) {
+        arr[16 + i][65 - j] = birdArr[i][j];
+      }
     }
   }
 };
+
 let firstBlokk = 1;
 let tavolsag = 13;
 let blockGeneratedID = 0;
@@ -59,7 +73,7 @@ let randomBlockGenerator = () => {
     }
   }
 };
-let dino = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
+let dinoArray = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
   [0, 0, 0, 0, 1, 0, 1, 1, 1],
 
@@ -73,50 +87,64 @@ let dino = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
   [0, 0, 0, 1, 0, 0, 0, 0, 0]];
 
-let dinoMove = (dino) => {
+let dinoMove = () => {
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 9; j++) {
-      arr[17 + i][j + 2] = dino[i][j];
+      arr[17 + i][j + 2] = dinoArray[i][j];
     }
   }
 };
-dinoMove(dino);
+dinoMove(dinoArray);
 
-/*const print2D = () => {
-  for (let x = 0; x < arr.length; x++) {
-    for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
-      if (arr[x][y] === 2) {
-        process.stdout.write('\u28FF');}
-      else if (arr[x][y] === 1) {
-        process.stdout.write(kaposzta);
-      } else if (arr[x][y] === 0) {
-        process.stdout.write(' ');
-      } else {
-        process.stdout.write(arr[x][y] + '');
+let statusTwo = 0;
+
+let dinoChange = () => {
+  if (statusTwo < 1) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      for (let j = arr.length - 1; j >= 0; j--) {
+        if ((arr[i][j] === 0 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 0)) {
+          arr[i][j] = arr[i - 1][j];
+        }
       }
     }
-    console.log();
+  } else if (status < 2) {
+    statusTwo = 0;
+    return dinoMove(dinoArray);
   }
-};*/
+  statusTwo += 1;
+};
+
+let skyArr = [[0, 4, 4, 4, 4, 4, 0, 0], [4, 4, 4, 4, 4, 4, 4, 4], [0, 4, 4, 4, 4, 4, 4, 0]];
+
+const sky = (skyArr) => {
+  for (let i = 0; i <= 2; i++) {
+    for (let j = 0; j <= 7; j++) {
+      arr[4 + i][j + 2] = skyArr[i][j];
+    }
+  }
+};
+
+// sky(skyArr);
 
 const print2D = () => {
   let str = new String();
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
-      let kaposzta = '\u2588';
       if (arr[x][y] === 2) {
         str += '\u28FF';
       } else if (arr[x][y] === 1) {
-        str += kaposzta;
+        str += '\u2588';
       } else if (arr[x][y] === 0) {
         str += ' ';
+      } else if (arr[x][y] === 4) {
+        str += '\u25EF';
+      } else if (arr[x][y] === 6) {
+        str += '\u25BC';
       }
     } str += '\n';
   }
   return str;
 };
-
 
 let status = 0;
 
@@ -144,12 +172,16 @@ let dinoUpDown = () => {
     status = -1;
   } status += 1;
 };
+
 let move = () => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr[i].length - 1; j++) {
       if ((arr[i][j] === 0 && arr[i][j + 1] === 2) || (arr[i][j] === 2 && arr[i][j + 1] === 0)) {
         arr[i][j] = arr[i][j + 1];
-      } else if ((arr[i][j] + arr[i][j + 1]) === 3) {
+      } else if ((arr[i][j] === 0 && arr[i][j + 1] === 6) || (arr[i][j] === 6 && arr[i][j + 1] === 0)) {
+        arr[i][j] = arr[i][j + 1];
+        arr[i][j + 1] = 0;
+      } else if ((arr[i][j] + arr[i][j + 1]) === 3 || (arr[i][j] + arr[i][j + 1]) === 7) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
         process.exit();
@@ -172,19 +204,21 @@ const gameOver = (gameOverArray) => {
   }
 };
 
-// gameOver(gameOverArray);
-
 function KeyAction () {
   let stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.resume();
   stdin.setEncoding('utf8');
   stdin.on('data', function (key) {
-    if (key === '\u001b[B') {
+    if (key === '\u001b') {
       process.exit();
     } else if (key === '\u0020') {
       for (let x = 0; x < 24; x++) {
         setTimeout(dinoUpDown, 100 * x);
+      }
+    } else if (key === '\u001b[B') {
+      for (let x = 0; x < 1; x++) {
+        setTimeout(dinoChange, 100 * x);
       }
     }
     process.stdout.write(key);
