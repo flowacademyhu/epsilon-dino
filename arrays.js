@@ -183,7 +183,6 @@ let move = () => {
         arr[i][j] = arr[i][j + 1];
         arr[i][j + 1] = 0;
       } else if ((arr[i][j] + arr[i][j + 1]) === 3 || (arr[i][j] + arr[i][j + 1]) === 7) {
-      } else if ((arr[i][j] === 2 && arr[i - 1][j] === 1) || (arr[i][j] === 1 && arr[i - 1][j] === 2)) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
         process.exit();
