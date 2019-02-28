@@ -1,3 +1,5 @@
+var colors = require('colors');
+
 const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
                         az akadaly letrehozasahoz. */
 let BlockGenerated = 10; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
@@ -107,24 +109,12 @@ let dinoChange = () => {
         }
       }
     }
-  } else if (status < 2) {
+  } else if (statusTwo < 2) {
     statusTwo = 0;
     return dinoMove(dinoArray);
   }
   statusTwo += 1;
 };
-
-let skyArr = [[0, 4, 4, 4, 4, 4, 0, 0], [4, 4, 4, 4, 4, 4, 4, 4], [0, 4, 4, 4, 4, 4, 4, 0]];
-
-const sky = (skyArr) => {
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 7; j++) {
-      arr[4 + i][j + 2] = skyArr[i][j];
-    }
-  }
-};
-
-// sky(skyArr);
 
 const print2D = () => {
   let str = new String();
@@ -132,15 +122,13 @@ const print2D = () => {
     for (let y = 0; y < arr[x].length; y++) {
       // itt élt káposzta. Rest in peace (élt: 2019.02.24 - 2019.02.28)
       if (arr[x][y] === 2) {
-        str += '\u28FF';
+        str += '\u28FF'.green;
       } else if (arr[x][y] === 1) {
-        str += '\u2588';
+        str += '\u2588'.yellow;
       } else if (arr[x][y] === 0) {
-        str += ' ';
-      } else if (arr[x][y] === 4) {
-        str += '\u25EF';
+        str += '\u2591'.blue;
       } else if (arr[x][y] === 6) {
-        str += '\u25BC';
+        str += '\u25BC'.red;
       }
     } str += '\n';
   }
@@ -218,9 +206,7 @@ function KeyAction () {
         setTimeout(dinoUpDown, 100 * x);
       }
     } else if (key === '\u001b[B') {
-      for (let x = 0; x < 1; x++) {
-        setTimeout(dinoChange, 100 * x);
-      }
+      dinoChange();
     }
     process.stdout.write(key);
   });
