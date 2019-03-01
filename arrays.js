@@ -1,6 +1,8 @@
 const readAndWriteFv = require('./scoreTable');
 let readAndWrite = readAndWriteFv.writeAndReadFile;
 var colors = require('colors');
+var mpg = require('mpg123');
+var player = new mpg.MpgPlayer();
 
 const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
                         az akadaly letrehozasahoz. */
@@ -211,6 +213,7 @@ function KeyAction () {
     } else if (key === '\u001b[B' && key !== '\u0020' && key !== '\u001b[A') {
       dinoChange();
     } else if ((key === '\u0020' || key === '\u001b[A') && statusTwo !== 1 ) {
+      player.play("jump.mp3");
       for (let x = 0; x < 24; x++) {
         setTimeout(dinoUpDown, 100 * x);
       }
