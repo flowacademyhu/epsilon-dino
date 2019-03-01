@@ -1,3 +1,9 @@
+const readAndWriteFv = require('./scoreTable');
+let readAndWrite = readAndWriteFv.writeAndReadFile;
+var colors = require('colors');
+var mpg = require('mpg123');
+var player = new mpg.MpgPlayer();
+
 const nehezseg = 10; /* szabalyozza, hogy egy a mennyihez esely van frisitesenkent
                         az akadaly letrehozasahoz. */
 let BlockGenerated = 10; /* Ez az ertek szamolja az eddig legeneralt akadalyok szamat. */
@@ -44,18 +50,20 @@ let blockToltes = (addRandomBlock) => {
         arr[23 - i][78 - j] = addRandomBlock[i][j];
       }
     }
-  } else {
+  } 
+  else if (addRandomBlock === birdArr) {
     for (let i = 0; i <= 1; i++) {
       for (let j = 0; j <= 6; j++) {
-        arr[16 + i][65 - j] = birdArr[i][j];
+        arr[16 + i][65 - j] = addRandomBlock[i][j];
       }
     }
   }
 };
 
 let firstBlokk = 1;
-let tavolsag = 13;
+let tavolsag = 15;
 let blockGeneratedID = 0;
+
 let randomBlockGenerator = () => {
   if (firstBlokk === 1) {
     blockToltes(addRandomBlock());
@@ -73,6 +81,7 @@ let randomBlockGenerator = () => {
     }
   }
 };
+
 let dinoArray = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
   [0, 0, 0, 0, 1, 0, 1, 1, 1],
@@ -94,6 +103,7 @@ let dinoMove = () => {
     }
   }
 };
+
 dinoMove(dinoArray);
 
 let statusTwo = 0;
@@ -107,39 +117,26 @@ let dinoChange = () => {
         }
       }
     }
-  } else if (status < 2) {
+  } else if (statusTwo < 2) {
     statusTwo = 0;
     return dinoMove(dinoArray);
   }
   statusTwo += 1;
 };
 
-let skyArr = [[0, 4, 4, 4, 4, 4, 0, 0], [4, 4, 4, 4, 4, 4, 4, 4], [0, 4, 4, 4, 4, 4, 4, 0]];
-
-const sky = (skyArr) => {
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 7; j++) {
-      arr[4 + i][j + 2] = skyArr[i][j];
-    }
-  }
-};
-
-// sky(skyArr);
-
 const print2D = () => {
   let str = new String();
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[x].length; y++) {
+      // itt élt káposzta. Rest in peace (élt: 2019.02.24 - 2019.02.28)
       if (arr[x][y] === 2) {
-        str += '\u28FF';
+        str += '\u28FF'.green;
       } else if (arr[x][y] === 1) {
-        str += '\u2588';
+        str += '\u2588'.yellow;
       } else if (arr[x][y] === 0) {
-        str += ' ';
-      } else if (arr[x][y] === 4) {
-        str += '\u25EF';
+        str += '\u2591'.blue;
       } else if (arr[x][y] === 6) {
-        str += '\u25BC';
+        str += '\u25BC'.red;
       }
     } str += '\n';
   }
@@ -184,6 +181,7 @@ let move = () => {
       } else if ((arr[i][j] + arr[i][j + 1]) === 3 || (arr[i][j] + arr[i][j + 1]) === 7) {
         cancelled = false;
         console.log(print2D(gameOver(gameOverArray)));
+        readAndWrite(score);
         process.exit();
       }
     }
@@ -212,13 +210,12 @@ function KeyAction () {
   stdin.on('data', function (key) {
     if (key === '\u001b') {
       process.exit();
-    } else if (key === '\u0020') {
+    } else if (key === '\u001b[B' && key !== '\u0020' && key !== '\u001b[A') {
+      dinoChange();
+    } else if ((key === '\u0020' || key === '\u001b[A') && statusTwo !== 1 ) {
+      player.play("jump.mp3");
       for (let x = 0; x < 24; x++) {
         setTimeout(dinoUpDown, 100 * x);
-      }
-    } else if (key === '\u001b[B') {
-      for (let x = 0; x < 1; x++) {
-        setTimeout(dinoChange, 100 * x);
       }
     }
     process.stdout.write(key);
@@ -252,13 +249,9 @@ function ScoreAndSpeed () {
   } else if (speed === 4) {
     score++;
     difficulty = 'JESUS!';
-  }
+  } return score;
 }
-/* function highscoreIratas (score) {
-  myObj = {name: userName, scores: score};
-  myJSON = JSON.stringify(myObj);
-  localStorage.setItem("gameStorage", myJSON);
-} */
+
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
@@ -273,9 +266,11 @@ let App = () => {
       console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty + '\b:' + BlockGenerated);
+      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);      
     }
   });
 };
 
-App();
+module.exports = { score };
+
+module.exports = { App };
