@@ -18,6 +18,7 @@
   "homepage": "https://github.com/flowacademyhu/epsilon-dino#readme",
   "dependencies": {
     "color": "^3.1.0",
-    "mpg123": "^0.2.3"
+    "mpg123": "^0.2.3",
+    "readline-sync": "^1.4.9"
   }
 }
