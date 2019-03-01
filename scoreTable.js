@@ -1,10 +1,14 @@
+let scoreRead = require('./arrays');
+let score = scoreRead.score;
 var fs = require('fs');
-
+let m = require('./arrays');
 let rawdata = fs.readFileSync('score.json');
 let data = JSON.parse(rawdata);
-console.log(data);
-
+let kiir = () => {
+  console.log('kapi');
+};
 function sort (data) {
+  console.log('wqeqw::: ' + data);
   for (let i = 1; i < 5; i++) {
     let temp = data.score[i];
     let temp2 = data.title[i];
@@ -18,10 +22,9 @@ function sort (data) {
   } return data;
 }
 
-sort(data);
+sort(m.salata);
 
 let name = 'Moxi';
-let score = 6;
 
 let insert = (data, score, name) => {
   if (score > data.score[4]) {
@@ -29,13 +32,12 @@ let insert = (data, score, name) => {
     data.title.pop();
     data.score.push(score);
     data.title.push(name);
-  } return data;
+  }
+  return data;
 };
+let data2 = sort(m.salata);
 
-insert(data, score, name);
-
-data = sort(data);
-
-let dataWrite = JSON.stringify(data);
+let dataWrite = JSON.stringify(data2);
 fs.writeFileSync('score.json', dataWrite);
 
+module.exports = { insert, kiir, data, score, name };

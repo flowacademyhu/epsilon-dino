@@ -87,14 +87,34 @@ let dinoArray = [[0, 0, 0, 0, 1, 1, 1, 1, 0],
 
   [0, 0, 0, 1, 0, 0, 0, 0, 0]];
 
-let dinoMove = () => {
+let alpakaArray = [[0, 0, 0, 0, 0, 1, 1, 0, 0],
+
+  [0, 0, 0, 0, 0, 1, 1, 1, 0],
+
+  [0, 0, 0, 0, 0, 1, 1, 0, 0],
+
+  [0, 0, 0, 0, 0, 1, 1, 0, 0],
+
+  [1, 1, 1, 1, 1, 1, 1, 0, 0],
+
+  [0, 1, 1, 1, 1, 1, 1, 0, 0],
+
+  [0, 1, 0, 0, 0, 0, 1, 0, 0]];
+
+let dinoMove = (dinoArray) => {
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 9; j++) {
       arr[17 + i][j + 2] = dinoArray[i][j];
     }
   }
 };
-dinoMove(dinoArray);
+let characterSelect = (value) => {
+  if (value === 1) {
+    return dinoArray;
+  } else if (value === 2) {
+    return alpakaArray;
+  }
+};
 
 let statusTwo = 0;
 
@@ -107,24 +127,12 @@ let dinoChange = () => {
         }
       }
     }
-  } else if (status < 2) {
+  } else if (statusTwo < 2) {
     statusTwo = 0;
     return dinoMove(dinoArray);
   }
   statusTwo += 1;
 };
-
-let skyArr = [[0, 4, 4, 4, 4, 4, 0, 0], [4, 4, 4, 4, 4, 4, 4, 4], [0, 4, 4, 4, 4, 4, 4, 0]];
-
-const sky = (skyArr) => {
-  for (let i = 0; i <= 2; i++) {
-    for (let j = 0; j <= 7; j++) {
-      arr[4 + i][j + 2] = skyArr[i][j];
-    }
-  }
-};
-
-// sky(skyArr);
 
 const print2D = () => {
   let str = new String();
@@ -255,13 +263,15 @@ function ScoreAndSpeed () {
     difficulty = 'JESUS!';
   }
 }
-
 let speed = 300;
 let score = 0;
 let difficulty = '- (Varakozas az elso akadalyra)';
 let cancelled = true;
-KeyAction();
-let App = () => {
+
+let App = (value) => {
+  let CharacterAnswer = value;
+  dinoMove(CharacterAnswer);
+  KeyAction();
   setTimeout(function run () {
     if (cancelled) {
       console.clear();
@@ -274,4 +284,4 @@ let App = () => {
     }
   });
 };
-module.exports = { App };
+module.exports = { App, score, characterSelect };
