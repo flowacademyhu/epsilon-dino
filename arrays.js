@@ -54,7 +54,7 @@ let blockToltes = (addRandomBlock) => {
   else if (addRandomBlock === birdArr) {
     for (let i = 0; i <= 1; i++) {
       for (let j = 0; j <= 6; j++) {
-        arr[16 + i][65 - j] = addRandomBlock[i][j];
+        arr[16 + i][78 - j] = addRandomBlock[i][j];
       }
     }
   }
