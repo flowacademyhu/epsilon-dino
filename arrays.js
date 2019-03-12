@@ -254,7 +254,7 @@ function ScoreAndSpeed () {
 
 let speed = 300;
 let score = 0;
-let difficulty = '- (Varakozas az elso akadalyra)';
+let difficulty = '- (Waiting for cactus...)';
 let cancelled = true;
 KeyAction();
 let App = () => {
@@ -266,7 +266,7 @@ let App = () => {
       console.log(print2D(move()));
       setTimeout(run, speed);
       ScoreAndSpeed();
-      console.log('Kaktusszamlalo: ' + score + ' | Nehezseg: ' + difficulty);      
+      console.log('Cactus No.: ' + score + ' | Difficulty: ' + difficulty);      
     }
   });
 };

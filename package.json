@@ -1,16 +1,19 @@
 {
-  "name": "epsilon-dino",
+  "name": "@flowacademy/epsilon-dino",
   "version": "1.0.0",
-  "description": "",
-  "main": "arrays.js",
+  "description": "This a remake of the Chrome dino game.",
+  "lincence": "apache2",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "epsilon-dino": "./modulozos.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/flowacademyhu/epsilon-dino.git"
   },
-  "author": "",
+  "author": "Farkas Anita, Varga Alexandra, Pecze Tamás - Flow Academy",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/flowacademyhu/epsilon-dino/issues"

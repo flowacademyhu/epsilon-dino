@@ -41,7 +41,7 @@ let writeAndReadFile = (score) => {
       data.title.push(name);
     }
     else { 
-      console.log('Sajnos nem kerültél fel az éremtáblázatra!');
+      console.log('You did not reach the scoretable');
     } return data;
   };
 
